@@ -4,7 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./dockerdemo/Dockerfile
       buildContext: .
-      tag: registry.cn-hangzhou.aliyuncs.com/springcloud-cn/java:8u172-jre-alpine
+      tag: dockerdemo
       pushRemote: true
       registry: registry.cn-hangzhou.aliyuncs.com
     when:
