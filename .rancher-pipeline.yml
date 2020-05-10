@@ -1,10 +1,23 @@
 stages:
 - name: 构建
   steps:
+  - runScriptConfig:
+      image: java:8
+      shellScript: |-
+        cd dockerdemo
+        build
+        test
+  when:
+    event:
+      include:
+      - pull_request
+- name: 发布
+  steps:
   - publishImageConfig:
       dockerfilePath: ./dockerdemo/Dockerfile
       buildContext: .
-      tag: dockerdemo/v1
+      tag: dockerdemo
+      pushRemote: true
       registry: registry.cn-hangzhou.aliyuncs.com
   when:
     event:
