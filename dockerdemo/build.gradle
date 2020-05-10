@@ -1,11 +1,11 @@
 buildscript {
     ext{
-        gradleHome = "http://bighealth.botubigdata.com:8087/botu-public/publicconfig/raw/master/"
+        gradleHome = "https://gitee.com/fanminjie/config/raw/master/"
     }
     apply from: gradleHome + "version.gradle"
     repositories {
         mavenLocal()
-        maven {url "${mavenRepository}/maven-public/"}
+        maven {url "${mavenRepository}"}
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
