@@ -7,6 +7,10 @@ stages:
       tag: registry.cn-hangzhou.aliyuncs.com/springcloud-cn/java:8u172-jre-alpine
       pushRemote: true
       registry: registry.cn-hangzhou.aliyuncs.com
+    when:
+      event:
+        include:
+        - pull_request
   when:
     event:
       include:
