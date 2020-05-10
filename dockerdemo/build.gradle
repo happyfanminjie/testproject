@@ -1,0 +1,54 @@
+buildscript {
+    ext{
+        gradleHome = "http://bighealth.botubigdata.com:8087/botu-public/publicconfig/raw/master/"
+    }
+    apply from: gradleHome + "version.gradle"
+    repositories {
+        mavenLocal()
+        maven {url "${mavenRepository}/maven-public/"}
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("se.transmode.gradle:gradle-docker:1.2")
+    }
+}
+
+apply from: gradleHome + "base.gradle"
+apply plugin: 'application'
+apply plugin: 'docker'
+group 'com.demo'
+version '1.0'
+description 'docker测试'
+mainClassName = "DockerApp"
+bootJar {
+    // 默认只打普通jar包
+    enabled = true
+}
+
+jar {
+    baseName = "dockerdemo"
+    version = 1.0
+}
+
+//distDocker {
+//    baseImage = "registry.cn-hangzhou.aliyuncs.com/springcloud-cn/java:8u172-jre-alpine"
+//    maintainer = "ixf"
+//}
+
+task buildDocker(type: Docker) {
+    applicationName = jar.baseName
+    tagVersion = jar.version
+    dockerfile = file('Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+}
