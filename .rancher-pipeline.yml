@@ -1,16 +1,11 @@
 stages:
-- name: a
+- name: 构建
   steps:
   - publishImageConfig:
       dockerfilePath: ./dockerdemo/Dockerfile
       buildContext: .
-      tag: dockerdemo
-      pushRemote: true
+      tag: dockerdemo/v1
       registry: registry.cn-hangzhou.aliyuncs.com
-    when:
-      event:
-        include:
-        - pull_request
   when:
     event:
       include:
